@@ -83,8 +83,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/MedWA3MO/moouaamm_IoT.git
-    targetRevision: HEAD
-    path: p3/manifests
+    targetRevision: main
+    path: p3/confs
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
