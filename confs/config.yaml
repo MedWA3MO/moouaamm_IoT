@@ -70,25 +70,3 @@ spec:
       targetPort: 8888
   type: ClusterIP
 
----
-# ============================
-# Argo CD Application
-# ============================
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: moouaamm-app
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/MedWA3MO/moouaamm_IoT.git
-    targetRevision: main
-    path: p3/confs
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: dev
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
