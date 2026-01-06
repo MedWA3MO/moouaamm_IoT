@@ -1,6 +1,4 @@
-# ============================
-# Deployment
-# ============================
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -8,7 +6,6 @@ metadata:
   namespace: dev
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: moouaamm
@@ -17,46 +14,12 @@ spec:
       labels:
         app: moouaamm
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
-        runAsGroup: 1001
-        seccompProfile:
-          type: RuntimeDefault
       containers:
         - name: moouaamm
-          image: wil42/playground:v2
-          imagePullPolicy: IfNotPresent
+          image: wil42/playground:v1
           ports:
-            - name: web
-              containerPort: 8888
-          resources:
-            requests:
-              cpu: "50m"
-              memory: "64Mi"
-            limits:
-              cpu: "100m"
-              memory: "128Mi"
-          securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
-          livenessProbe:
-            httpGet:
-              path: /
-              port: web
-            initialDelaySeconds: 10
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /
-              port: web
-            initialDelaySeconds: 10
-            periodSeconds: 10
-
+            - containerPort: 8888
 ---
-# ============================
-# Service
-# ============================
 apiVersion: v1
 kind: Service
 metadata:
@@ -68,5 +31,3 @@ spec:
   ports:
     - port: 8888
       targetPort: 8888
-  type: ClusterIP
-
